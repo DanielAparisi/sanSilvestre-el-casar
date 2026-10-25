@@ -1,0 +1,38 @@
+<section id="carrera" class="banner">
+	<div class="container inner">
+		<span class="distance">Distancia: <span class="km">5 km</span></span>
+		<span class="sub">suaves y divertidos</span>
+	</div>
+</section>
+
+<style>
+	.banner {
+		background: var(--green);
+		color: #fff;
+		padding-block: 40px;
+		clip-path: polygon(0 6%, 4% 0, 30% 5%, 60% 0, 88% 6%, 100% 0, 100% 94%, 92% 100%, 65% 95%, 35% 100%, 8% 94%, 0 100%);
+	}
+
+	.inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 12px 28px;
+		text-align: center;
+	}
+
+	.distance {
+		font-family: var(--font-marker);
+		font-size: clamp(32px, 5vw, 56px);
+	}
+
+	.km {
+		color: var(--gold);
+	}
+
+	.sub {
+		font-family: var(--font-brush);
+		font-size: clamp(26px, 3.5vw, 38px);
+	}
+</style>

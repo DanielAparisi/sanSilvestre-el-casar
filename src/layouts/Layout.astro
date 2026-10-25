@@ -1,23 +1,48 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "III San Silvestre Casareña · 27 de diciembre de 2026",
+  description = "5 km suaves y divertidos por El Casar. Chocolate con roscón, premios a los grupos más numerosos y a los mejores disfraces.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat+Brush&family=Nunito:wght@400;600;700;800&family=Permanent+Marker&display=swap"
+    />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import Snowflakes from "magic-snowflakes";
+
+      // Sin `container`, se monta en <body> con position: fixed y cubre toda la ventana
+      new Snowflakes({
+        // Azul claro: el blanco no se ve sobre el fondo crema
+        color: "#8ec5e8",
+        count: 50,
+        minOpacity: 0.6,
+        maxOpacity: 1,
+        zIndex: 9999,
+      });
+    </script>
+  </body>
+</html>

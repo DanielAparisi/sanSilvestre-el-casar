@@ -1,0 +1,97 @@
+---
+interface Props {
+	/** ISO date of the race start, in local time of El Casar */
+	target: string;
+}
+
+const { target } = Astro.props;
+const units = [
+	{ key: 'd', label: 'Días' },
+	{ key: 'h', label: 'Horas' },
+	{ key: 'm', label: 'Min' },
+	{ key: 's', label: 'Seg' },
+];
+---
+
+<div class="countdown" data-target={target}>
+	<span class="title">Faltan…</span>
+	<div class="grid" role="timer" aria-live="off">
+		{
+			units.map((u) => (
+				<div class="unit">
+					<span class="value" data-unit={u.key}>--</span>
+					<span class="label">{u.label}</span>
+				</div>
+			))
+		}
+	</div>
+</div>
+
+<script>
+	const pad = (n: number) => String(n).padStart(2, '0');
+
+	document.querySelectorAll<HTMLElement>('.countdown').forEach((el) => {
+		const target = new Date(el.dataset.target!).getTime();
+		const fields = Object.fromEntries(
+			[...el.querySelectorAll<HTMLElement>('[data-unit]')].map((f) => [f.dataset.unit, f]),
+		);
+
+		const tick = () => {
+			const diff = Math.max(0, Math.floor((target - Date.now()) / 1000));
+			fields.d.textContent = String(Math.floor(diff / 86400));
+			fields.h.textContent = pad(Math.floor((diff % 86400) / 3600));
+			fields.m.textContent = pad(Math.floor((diff % 3600) / 60));
+			fields.s.textContent = pad(diff % 60);
+		};
+
+		tick();
+		setInterval(tick, 1000);
+	});
+</script>
+
+<style>
+	.countdown {
+		background: var(--green);
+		color: #fff;
+		padding: 16px 22px;
+		border-radius: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		align-items: center;
+		width: 100%;
+		max-width: 440px;
+	}
+
+	.title {
+		font-family: var(--font-brush);
+		font-size: 22px;
+		color: var(--gold);
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 10px;
+		width: 100%;
+		text-align: center;
+	}
+
+	.unit {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.value {
+		font-family: var(--font-numbers);
+		font-size: 32px;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.label {
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+</style>

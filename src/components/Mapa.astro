@@ -1,0 +1,59 @@
+---
+// Plaza de toros de El Casar
+const salida = { lat: 40.70433040488279, lng: -3.430136660947211 };
+
+// Embed clásico de Google Maps: no necesita API key ni facturación
+const embed = `https://maps.google.com/maps?q=${salida.lat},${salida.lng}&z=16&hl=es&output=embed`;
+const enlaceMaps = `https://www.google.com/maps/search/?api=1&query=${salida.lat},${salida.lng}`;
+---
+
+<section id="mapa" class="container mapa">
+  <h2 class="section-title">Cómo llegar</h2>
+  <p>Salida y meta en la plaza de toros de El Casar.</p>
+  <div class="map">
+    <iframe
+      title="Mapa de la plaza de toros de El Casar"
+      width="100%"
+      height="100%"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src={embed}
+    >
+    </iframe>
+  </div>
+  <a class="btn btn-outline" href={enlaceMaps} target="_blank" rel="noopener">
+    Abrir en Google Maps
+  </a>
+</section>
+
+<style>
+  .mapa {
+    padding-block: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .map {
+    width: 100%;
+    height: 420px;
+    border: 2px solid var(--ink);
+    border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--red);
+    overflow: hidden;
+    filter: grayscale(1);
+    transition: filter 0.5s;
+  }
+
+  .map:hover {
+    filter: grayscale(0);
+  }
+
+  iframe {
+    display: block;
+    border: 0;
+  }
+</style>

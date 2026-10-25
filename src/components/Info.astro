@@ -1,0 +1,130 @@
+---
+// TODO: completar los datos entre corchetes cuando la organización los confirme
+const cards = [
+  {
+    title: "Salida y meta",
+    text: "Plaza de toros de  El Casar. Recorrido urbano circular de 5 km.",
+    color: "var(--red)",
+    icon: "pin",
+  },
+  {
+    title: "Recogida de dorsales",
+    text: "El mismo día desde las [HORA] en la zona de salida, o el [DÍA PREVIO] en [LUGAR].",
+    color: "var(--green)",
+    icon: "clock",
+  },
+  {
+    title: "Todas las edades",
+    text: "Ven solo, en pareja o con tu peña. Menores acompañados de un adulto.",
+    color: "#9a6b00",
+    icon: "people",
+  },
+];
+---
+
+<section class="container info">
+  <div class="intro">
+    <h2 class="section-title">Una carrera para todos</h2>
+    <p>
+      No hace falta ser runner: aquí se viene a correr, a andar o a reír. Lo
+      importante es despedir el año juntos por las calles del pueblo.
+    </p>
+  </div>
+  <div class="cards">
+    {
+      cards.map((c) => (
+        <article class="card" style={`--accent: ${c.color}`}>
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            {c.icon === "pin" && (
+              <>
+                <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" />
+                <circle cx="12" cy="9.5" r="2.5" />
+              </>
+            )}
+            {c.icon === "clock" && (
+              <>
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </>
+            )}
+            {c.icon === "people" && (
+              <>
+                <circle cx="9" cy="8" r="3" />
+                <circle cx="17" cy="9" r="2.5" />
+                <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+                <path d="M15 14.5c3 0 6 1.8 6 5" />
+              </>
+            )}
+          </svg>
+          <h3>{c.title}</h3>
+          <p>{c.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .info {
+    padding-block: 80px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 18px;
+    max-width: 640px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 18px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 5px 5px 0 var(--accent);
+  }
+
+  .card svg {
+    color: var(--accent);
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .card p {
+    color: var(--muted);
+    line-height: 1.5;
+  }
+</style>

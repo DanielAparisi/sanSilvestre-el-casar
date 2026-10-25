@@ -1,0 +1,143 @@
+---
+const faqs = [
+	{
+		q: '¿Tengo que ir disfrazado?',
+		a: 'No es obligatorio, pero sí muy recomendable: hay premio para los mejores disfraces y es la mejor parte de la mañana.',
+	},
+	{
+		q: '¿Pueden participar niños?',
+		a: 'Sí. Los menores deben ir acompañados de un adulto inscrito. [CONFIRMAR PRECIO INFANTIL]',
+	},
+	{
+		q: '¿Qué incluye la inscripción?',
+		a: 'Dorsal, avituallamiento y el tradicional chocolate con roscón al terminar. Y alguna sorpresa más que iremos contando.',
+	},
+	{
+		q: '¿Cómo cuenta mi grupo para el premio?',
+		a: 'Escribid el mismo nombre de grupo o peña al inscribiros. Gana el grupo con más corredores en meta.',
+	},
+];
+---
+
+<section id="faq" class="faq">
+	<h2 class="section-title">Dudas frecuentes</h2>
+	{
+		faqs.map((f, i) => (
+			<details name="faq" open={i === 0}>
+				<summary>{f.q}</summary>
+				<p>{f.a}</p>
+			</details>
+		))
+	}
+</section>
+
+<script>
+	// Anima la altura al abrir y al cerrar. El <details> nativo se cierra de golpe,
+	// así que se intercepta el clic y se cambia `open` al terminar la animación.
+	const DURATION = 350;
+	const items = [...document.querySelectorAll<HTMLDetailsElement>('.faq details')];
+	const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+	// Con `name` el navegador cierra las demás al instante; lo gestionamos aquí para animarlas
+	items.forEach((d) => d.removeAttribute('name'));
+
+	function toggle(d: HTMLDetailsElement, open: boolean) {
+		if (reduceMotion.matches) {
+			d.open = open;
+			return;
+		}
+
+		const summary = d.querySelector('summary')!;
+		const start = d.offsetHeight;
+		d.getAnimations().forEach((a) => a.cancel());
+
+		d.open = true;
+		const border = d.offsetHeight - d.clientHeight;
+		const end = open ? d.offsetHeight : summary.offsetHeight + border;
+
+		d.style.overflow = 'hidden';
+		const anim = d.animate(
+			{ height: [`${start}px`, `${end}px`] },
+			{ duration: DURATION, easing: 'ease' },
+		);
+		anim.onfinish = () => {
+			d.open = open;
+			d.style.overflow = '';
+		};
+		// El "+"/"×" gira al empezar, no al terminar
+		d.classList.toggle('closing', !open);
+	}
+
+	items.forEach((d) => {
+		d.querySelector('summary')!.addEventListener('click', (e) => {
+			e.preventDefault();
+			const opening = !d.open || d.classList.contains('closing');
+			if (opening) {
+				items.filter((o) => o !== d && o.open).forEach((o) => toggle(o, false));
+			}
+			toggle(d, opening);
+		});
+	});
+</script>
+
+<style>
+	.faq {
+		max-width: 860px;
+		margin: 0 auto;
+		padding: 0 24px 88px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	details {
+		border-bottom: 2px dashed #d9c9a8;
+	}
+
+	details[open] p {
+		animation: faq-in 0.35s ease;
+	}
+
+	@keyframes faq-in {
+		from {
+			opacity: 0;
+			transform: translateY(-8px);
+		}
+	}
+
+	summary {
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 16px;
+		padding: 18px 0;
+		font-size: 18px;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	summary::after {
+		content: '+';
+		font-family: var(--font-numbers);
+		font-size: 24px;
+		color: var(--red);
+		transition: transform 0.35s ease;
+	}
+
+	/* El "+" gira hasta parecer una "×" en lugar de cambiar de golpe */
+	details[open]:not(.closing) summary::after {
+		transform: rotate(45deg);
+	}
+
+	details p {
+		margin-bottom: 18px;
+		font-size: 16px;
+		line-height: 1.55;
+		color: var(--muted);
+	}
+</style>

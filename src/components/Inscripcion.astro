@@ -1,0 +1,173 @@
+<section id="inscripcion" class="inscripcion">
+	<div class="card">
+		<div class="head">
+			<h2 class="section-title">Inscríbete</h2>
+			<p>8 € por inscrito · Plazas limitadas</p>
+		</div>
+
+		<!-- TODO: conectar con la pasarela de pago / servicio de inscripciones -->
+		<form id="form-inscripcion">
+			<label>
+				Nombre y apellidos
+				<input type="text" name="nombre" required placeholder="Ej. Lucía Martín" autocomplete="name" />
+			</label>
+			<label>
+				Correo electrónico
+				<input type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+			</label>
+			<label>
+				Categoría
+				<select name="categoria">
+					<option>Adulto</option>
+					<option>Infantil (menor de 14)</option>
+				</select>
+			</label>
+			<label>
+				Grupo o peña (opcional)
+				<input type="text" name="grupo" placeholder="Para el premio al grupo más numeroso" />
+			</label>
+			<label class="check">
+				<input type="checkbox" name="disfraz" />
+				Voy a correr disfrazado/a (opto al premio de disfraces)
+			</label>
+			<button type="submit" class="btn btn-primary full">Inscribirme · 8 €</button>
+		</form>
+
+		<div class="success" hidden>
+			<span class="success-title">¡Nos vemos en la salida!</span>
+			<span>Te hemos enviado un correo con los pasos para completar el pago.</span>
+			<button type="button" class="btn btn-outline" id="otra-inscripcion">Inscribir a otra persona</button>
+		</div>
+	</div>
+</section>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>('#form-inscripcion')!;
+	const success = document.querySelector<HTMLElement>('.success')!;
+
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		form.hidden = true;
+		success.hidden = false;
+	});
+
+	document.querySelector('#otra-inscripcion')!.addEventListener('click', () => {
+		form.reset();
+		success.hidden = true;
+		form.hidden = false;
+	});
+</script>
+
+<style>
+	.inscripcion {
+		padding: 88px 24px;
+	}
+
+	.card {
+		max-width: 760px;
+		margin: 0 auto;
+		background: #fff;
+		border: 3px solid var(--ink);
+		border-radius: 24px;
+		box-shadow: 8px 8px 0 var(--red);
+		padding: 40px 32px;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	.head {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		text-align: center;
+	}
+
+	.head p {
+		font-size: 17px;
+		color: var(--muted);
+	}
+
+	form {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 18px;
+	}
+
+	form[hidden] {
+		display: none;
+	}
+
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		font-weight: 700;
+		font-size: 15px;
+	}
+
+	input:not([type='checkbox']),
+	select {
+		font: inherit;
+		font-weight: 400;
+		font-size: 16px;
+		padding: 13px 14px;
+		border: 2px solid #8a7e6a;
+		border-radius: 12px;
+		background: #fffdf8;
+	}
+
+	input:focus-visible,
+	select:focus-visible {
+		outline: 3px solid var(--gold);
+		outline-offset: 1px;
+		border-color: var(--ink);
+	}
+
+	.check {
+		grid-column: 1 / -1;
+		flex-direction: row;
+		align-items: center;
+		gap: 10px;
+		font-weight: 600;
+	}
+
+	.check input {
+		width: 22px;
+		height: 22px;
+		accent-color: var(--red);
+	}
+
+	.full {
+		grid-column: 1 / -1;
+		border: none;
+	}
+
+	.success {
+		background: #e6f0e9;
+		border: 2px solid var(--green);
+		border-radius: 16px;
+		padding: 28px;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		align-items: center;
+	}
+
+	.success[hidden] {
+		display: none;
+	}
+
+	.success-title {
+		font-family: var(--font-marker);
+		font-size: 30px;
+		color: var(--green);
+	}
+
+	.success .btn {
+		margin-top: 8px;
+		font-size: 15px;
+		padding: 12px 22px;
+	}
+</style>

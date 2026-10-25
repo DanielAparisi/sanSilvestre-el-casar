@@ -1,0 +1,108 @@
+:root {
+	--cream: #fbf5e9;
+	--red: #c62828;
+	--green: #1f5c3a;
+	--gold: #f2c230;
+	--ink: #1a1a1a;
+	--muted: #3a3a3a;
+	--font-marker: 'Permanent Marker', cursive;
+	--font-brush: 'Caveat Brush', cursive;
+	--font-numbers: 'Archivo Black', sans-serif;
+	--font-body: 'Nunito', system-ui, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 80px;
+}
+
+body {
+	margin: 0;
+	background: var(--cream);
+	color: var(--ink);
+	font-family: var(--font-body);
+	overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+p {
+	margin: 0;
+}
+
+/* Al llegar a una sección desde el menú (#carrera, #premios...) aparece con un fundido */
+section:target {
+	animation: section-in 0.7s ease both;
+}
+
+@keyframes section-in {
+	from {
+		opacity: 0;
+		transform: translateY(24px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after,
+	::details-content {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-inline: 24px;
+}
+
+.section-title {
+	font-family: var(--font-marker);
+	font-weight: 400;
+	font-size: clamp(32px, 4.5vw, 52px);
+	text-align: center;
+}
+
+.btn {
+	display: inline-block;
+	text-decoration: none;
+	font-weight: 800;
+	font-size: 18px;
+	padding: 16px 30px;
+	border-radius: 999px;
+	border: 2px solid transparent;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+.btn-primary {
+	background: var(--red);
+	color: #fff;
+	box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn-primary:hover {
+	background: #a82020;
+}
+
+.btn-outline {
+	background: transparent;
+	color: var(--green);
+	border-color: var(--green);
+}
+
+.btn-outline:hover {
+	background: var(--green);
+	color: #fff;
+}
