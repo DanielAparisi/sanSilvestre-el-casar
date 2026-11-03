@@ -1,0 +1,190 @@
+---
+const articulos = [
+	{
+		n: 1,
+		title: 'Organización',
+		intro:
+			'La Carrera Popular 5K «III San Silvestre Casareña» está organizada por el Club Atletismo El Casar, con la colaboración del Excmo. Ayuntamiento de El Casar, y se celebrará el 27 de diciembre de 2026 a las 11:00 h, con salida y llegada junto a la plaza de toros de El Casar.',
+	},
+	{
+		n: 2,
+		title: 'Modalidades de participación',
+		items: [
+			'<strong>Corredores:</strong> para participantes que deseen correr.',
+			'<strong>Andarines:</strong> para participantes que deseen realizar el recorrido caminando. Adultos y niños.',
+		],
+	},
+	{
+		n: 3,
+		title: 'Inscripciones',
+		items: [
+			'<strong>Proceso:</strong> a través de la página web YouEvent.es, entre el 02/11/26 y el 27/12/26, o hasta agotar plazas.',
+			'<strong>Cuota:</strong> 8 € + gastos de gestión, no reembolsable en ninguna circunstancia.',
+			'<strong>Cancelación:</strong> si no te presentas el día de la carrera, no se devolverá el importe de la inscripción. Si la carrera se cancela por causas de fuerza mayor (climáticas, sanitarias o de seguridad), la organización podrá reprogramar el evento, sin obligación de reembolso.',
+		],
+	},
+	{
+		n: 4,
+		title: 'Categorías y premios',
+		intro:
+			'El evento no es cronometrado. El orden de llegada se registrará manualmente por la organización y su decisión será final.',
+		items: [
+			'<strong>Categoría absoluta:</strong> trofeo para los tres primeros corredores, masculino y femenino (1º, 2º y 3º), con edad mínima de 13 años.',
+			'<strong>Grupo mejor disfrazado:</strong> trofeo. Se evaluará originalidad, creatividad y coordinación del disfraz. La decisión la tomarán los representantes del Club Atletismo El Casar y será final.',
+			'<strong>Grupo más numeroso:</strong> trofeo. Se considerará el número total de inscritos en la misma agrupación.',
+			'<strong>Andarines:</strong> categoría no competitiva, para adultos y niños. En el caso de los niños, la inscripción es bajo la responsabilidad y el acompañamiento de un adulto.',
+		],
+	},
+	{
+		n: 5,
+		title: 'Reglas generales',
+		items: [
+			'El uso de disfraces no es obligatorio, pero quienes vayan disfrazados deben garantizar que su atuendo no compromete su seguridad ni la de otros corredores.',
+			'Los andarines no podrán correr en ningún momento del recorrido, para garantizar el orden de las modalidades.',
+			'Está prohibido el uso de vehículos, bicicletas o cualquier medio de transporte externo durante el recorrido.',
+		],
+	},
+	{
+		n: 6,
+		title: 'Desarrollo de la carrera',
+		items: [
+			'<strong>Salida y llegada:</strong> a las 11:00 exactamente, desde la zona anexa a la plaza de toros, junto al parking del polideportivo. Se solicita estar al menos 30 minutos antes del inicio para la organización del evento.',
+			'<strong>Duración máxima:</strong> 90 minutos para completar el recorrido.',
+		],
+	},
+	{
+		n: 7,
+		title: 'Clasificaciones',
+		items: [
+			'Los resultados se anunciarán el mismo día del evento, en el lugar de celebración.',
+			'Los premios se entregarán tras la finalización de la carrera, en el área designada.',
+		],
+	},
+	{
+		n: 8,
+		title: 'Responsabilidad del participante',
+		items: [
+			'Los participantes aceptan que participan bajo su propia responsabilidad, declarando estar en condiciones físicas óptimas para completar el recorrido.',
+			'La organización no se responsabiliza por accidentes, lesiones, pérdidas o daños durante el evento.',
+		],
+	},
+	{
+		n: 9,
+		title: 'Aceptación del reglamento',
+		intro:
+			'La inscripción a la carrera implica la aceptación plena de este reglamento. Cualquier asunto no contemplado será resuelto por la organización.',
+		contact: true,
+	},
+];
+---
+
+<section id="reglamento" class="container reglamento">
+	<h2 class="section-title">Reglamento</h2>
+	<p class="lead">Carrera Popular 5K · III San Silvestre Casareña</p>
+
+	<div class="grid">
+		{
+			articulos.map((a) => (
+				<article class="art">
+					<h3>
+						<span class="num">{a.n}</span>
+						{a.title}
+					</h3>
+					{a.intro && <p>{a.intro}</p>}
+					{a.items && (
+						<ul>
+							{a.items.map((i) => (
+								<li set:html={i} />
+							))}
+						</ul>
+					)}
+					{a.contact && (
+						<p>
+							Más información:{' '}
+							<a href="mailto:clubatletismoelcasar@gmail.com">clubatletismoelcasar@gmail.com</a>
+						</p>
+					)}
+				</article>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.reglamento {
+		max-width: 1000px;
+		padding-block: 40px 88px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.lead {
+		text-align: center;
+		font-family: var(--font-brush);
+		font-size: 26px;
+		color: var(--green);
+		margin-bottom: 20px;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+		gap: 20px 40px;
+	}
+
+	.art {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding-bottom: 24px;
+		border-bottom: 2px dashed #d9c9a8;
+		font-size: 16px;
+		line-height: 1.55;
+		color: var(--muted);
+	}
+
+	.art h3 {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		font-size: 20px;
+		font-weight: 800;
+		color: var(--ink);
+	}
+
+	.num {
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		background: var(--red);
+		color: #fff;
+		font-family: var(--font-numbers);
+		font-size: 16px;
+		box-shadow: 2px 2px 0 var(--ink);
+	}
+
+	ul {
+		margin: 0;
+		padding-left: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	li::marker {
+		color: var(--red);
+	}
+
+	.art :global(strong) {
+		color: var(--ink);
+	}
+
+	a {
+		color: var(--red);
+		font-weight: 700;
+	}
+</style>

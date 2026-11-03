@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import camiseta from "../assets/camiseta.jpeg";
+---
+
+<section id="camiseta" class="container camiseta">
+  <div class="texto">
+    <h2 class="section-title">La camiseta</h2>
+    <p class="script">¡Luce los colores de la carrera!</p>
+    <p>
+      Rojo navideño, corredores disfrazados y las casas de El Casar al fondo.
+      Así será la camiseta oficial de la III San Silvestre Casareña 2026.
+    </p>
+  </div>
+  <div class="foto">
+    <Image
+      src={camiseta}
+      alt="Camiseta roja de la III San Silvestre Casareña 2026 con corredores disfrazados de Papá Noel, reno, árbol, muñeco de nieve y elfa"
+      width={560}
+      densities={[1, 2]}
+    />
+  </div>
+</section>
+
+<style>
+  .camiseta {
+    padding-block: 40px 88px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px 64px;
+  }
+
+  .texto {
+    flex: 1 1 320px;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .script {
+    font-family: var(--font-brush);
+    font-size: 28px;
+    color: var(--green);
+  }
+
+  .texto p:last-child {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .foto {
+    flex: 1 1 320px;
+    max-width: 480px;
+    padding: 16px;
+    background: #fff;
+    border: 3px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    transform: rotate(2deg);
+  }
+
+  .foto img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
