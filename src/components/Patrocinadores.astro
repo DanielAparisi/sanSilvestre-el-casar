@@ -3,12 +3,15 @@ import { Image } from "astro:assets";
 import lirio from "../assets/patrocinadores/clinica-lirio.jpg";
 import rocket from "../assets/patrocinadores/rocket.jpg";
 import ibel from "../assets/patrocinadores/ibel.png";
+import turismo from "../assets/patrocinadores/turismo-el-casar.jpeg";
 
 // Todos se muestran en una casilla del mismo tamaño: ninguno destaca sobre otro
 const patrocinadores = [
   { nombre: "Clínica Lirio", logo: lirio },
   { nombre: "Rocket", logo: rocket },
-  { nombre: "Inmobiliaria Ibel", logo: ibel },
+  // Logo apaisado con fondo azul: rellenamos la casilla con su mismo color
+  { nombre: "Inmobiliaria Ibel", logo: ibel, fondo: "#2d3e50" },
+  { nombre: "Turismo El Casar", logo: turismo },
 ];
 ---
 
@@ -22,9 +25,9 @@ const patrocinadores = [
           <Image
             src={p.logo}
             alt={`Logo de ${p.nombre}`}
-            width={240}
-            height={240}
+            width={480}
             densities={[1, 2]}
+            style={p.fondo ? `background: ${p.fondo}; padding: 12px;` : undefined}
           />
           <span>{p.nombre}</span>
         </li>

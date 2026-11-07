@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import camiseta from "../assets/camiseta.jpeg";
+import camisetaTrasera from "../assets/camisetaTrasera.jpeg";
 ---
 
 <section id="camiseta" class="container camiseta">
@@ -12,13 +13,25 @@ import camiseta from "../assets/camiseta.jpeg";
       Así será la camiseta oficial de la III San Silvestre Casareña 2026.
     </p>
   </div>
-  <div class="foto">
-    <Image
-      src={camiseta}
-      alt="Camiseta roja de la III San Silvestre Casareña 2026 con corredores disfrazados de Papá Noel, reno, árbol, muñeco de nieve y elfa"
-      width={560}
-      densities={[1, 2]}
-    />
+  <div class="fotos">
+    <figure class="foto delante">
+      <Image
+        src={camiseta}
+        alt="Camiseta roja de la III San Silvestre Casareña 2026 con corredores disfrazados de Papá Noel, reno, árbol, muñeco de nieve y elfa"
+        width={560}
+        densities={[1, 2]}
+      />
+      <figcaption>Delante</figcaption>
+    </figure>
+    <figure class="foto detras">
+      <Image
+        src={camisetaTrasera}
+        alt="Parte trasera de la camiseta roja con los logos de los organizadores y patrocinadores: Club Atletismo El Casar, Ayuntamiento de El Casar, Concejalía de Deportes, Juventud, Turismo El Casar, Ibel Inmobiliaria, Clínica Lirio y Rocket"
+        width={280}
+        densities={[1, 2]}
+      />
+      <figcaption>Detrás</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -53,14 +66,39 @@ import camiseta from "../assets/camiseta.jpeg";
     color: var(--muted);
   }
 
+  .fotos {
+    flex: 1 1 420px;
+    max-width: 640px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
   .foto {
-    flex: 1 1 320px;
-    max-width: 480px;
-    padding: 16px;
+    margin: 0;
+    padding: 12px;
     background: #fff;
     border: 3px solid var(--ink);
     box-shadow: 8px 8px 0 var(--ink);
+  }
+
+  /* Proporciones: delantera 1:1, trasera ~1:2 → mismas alturas aprox. */
+  .delante {
+    flex: 2 1 0;
     transform: rotate(2deg);
+  }
+
+  .detras {
+    flex: 1 1 0;
+    transform: rotate(-3deg);
+  }
+
+  figcaption {
+    margin-top: 8px;
+    text-align: center;
+    font-family: var(--font-brush);
+    font-size: 20px;
+    color: var(--ink);
   }
 
   .foto img {

@@ -4,7 +4,18 @@
 			<span class="roman">III</span>
 			<span>San Silvestre Casareña</span>
 		</a>
-		<div class="links">
+		<button
+			class="hamburger"
+			type="button"
+			aria-label="Abrir menú"
+			aria-expanded="false"
+			aria-controls="menu"
+		>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+		<div class="links" id="menu">
 			<a href="#carrera">La carrera</a>
 			<a href="#premios">Premios</a>
 			<a href="#camiseta">Camiseta</a>
@@ -14,6 +25,30 @@
 		</div>
 	</nav>
 </header>
+
+<script>
+	const header = document.querySelector("header")!;
+	const boton = header.querySelector<HTMLButtonElement>(".hamburger")!;
+
+	function setAbierto(abierto: boolean) {
+		header.classList.toggle("abierto", abierto);
+		boton.setAttribute("aria-expanded", String(abierto));
+		boton.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+	}
+
+	boton.addEventListener("click", () => {
+		setAbierto(!header.classList.contains("abierto"));
+	});
+
+	// Al elegir una sección, cerramos el menú
+	header.querySelectorAll(".links a").forEach((a) => {
+		a.addEventListener("click", () => setAbierto(false));
+	});
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") setAbierto(false);
+	});
+</script>
 
 <style>
 	header {
@@ -79,5 +114,96 @@
 	.links .cta:hover {
 		color: #fff;
 		background: #a82020;
+	}
+
+	/* Botón hamburguesa: solo visible en móvil */
+	.hamburger {
+		display: none;
+		position: relative;
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		background: none;
+		border: 0;
+		cursor: pointer;
+	}
+
+	.hamburger span {
+		position: absolute;
+		left: 9px;
+		width: 26px;
+		height: 3px;
+		border-radius: 2px;
+		background: var(--ink);
+		transition:
+			transform 0.25s ease,
+			opacity 0.2s ease;
+	}
+
+	.hamburger span:nth-child(1) {
+		top: 13px;
+	}
+	.hamburger span:nth-child(2) {
+		top: 20.5px;
+	}
+	.hamburger span:nth-child(3) {
+		top: 28px;
+	}
+
+	/* Abierto: las tres rayas se convierten en una X */
+	.abierto .hamburger span:nth-child(1) {
+		transform: translateY(7.5px) rotate(45deg);
+	}
+	.abierto .hamburger span:nth-child(2) {
+		opacity: 0;
+	}
+	.abierto .hamburger span:nth-child(3) {
+		transform: translateY(-7.5px) rotate(-45deg);
+	}
+
+	@media (max-width: 768px) {
+		nav {
+			flex-wrap: nowrap;
+		}
+
+		.logo {
+			font-size: 19px;
+		}
+
+		.hamburger {
+			display: block;
+			flex-shrink: 0;
+		}
+
+		.links {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			align-items: stretch;
+			gap: 0;
+			padding: 8px 20px 20px;
+			background: rgb(251, 245, 233);
+			border-bottom: 2px dashed #e4d6bc;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+		}
+
+		.abierto .links {
+			display: flex;
+		}
+
+		.links a {
+			padding: 14px 4px;
+			border-bottom: 1px solid #ecdfc6;
+			text-align: center;
+		}
+
+		.links .cta {
+			margin-top: 14px;
+			border-bottom: 0;
+		}
 	}
 </style>
